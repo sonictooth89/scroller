@@ -16,7 +16,15 @@ document.addEventListener('DOMContentLoaded', function() {
         if (isThrottled) return;
         isThrottled = true;
         const direction = event.wheelDelta < 0 ? 1 : -1;
+
+        scroll();
         
+        currentSectionIndex = currentSectionIndex + direction;
+
+        scrollToCurrentSection();
+    });
+
+    function scroll(direction){
         if (direction === 1) {
             const isLastSection = currentSectionIndex === sections.length - 1;
             if (isLastSection) return;
@@ -24,14 +32,12 @@ document.addEventListener('DOMContentLoaded', function() {
             const firstSection = currentSectionIndex === 0;
             if (firstSection) return;
         }
+    }
 
-        currentSectionIndex = currentSectionIndex + direction;
-
-        console.log(currentSectionIndex);
-
+    function scrollToCurrentSection() {
         sections[currentSectionIndex].scrollIntoView({
             behavior: "smooth",
             block: 'start',
         })
-    })
+    }
 });
